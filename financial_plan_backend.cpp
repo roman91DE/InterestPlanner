@@ -32,6 +32,10 @@ double financial_plan::calculate_interest(double rate, double debt) {
     return (rate*debt/100);
 }
 
+std::vector < std::vector<double> > financial_plan::get_matrix() {
+    return plan;
+}
+
 
 // konstante tilgung
 constant_repayment::constant_repayment(double _initial_debt, double _interest_rate, int _total_time) :
