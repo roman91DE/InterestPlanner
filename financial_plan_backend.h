@@ -29,11 +29,13 @@ class constant_repayment : public financial_plan {
 
 
 // konstante annuität
-// class constant_annuity : public financial_plan {
-//     public:
-//         constant_annuity();
-//         ~constant_annuity();
-// };
+class constant_annuity : public financial_plan {
+    public:
+        constant_annuity(double _initial_debt, double _interest_rate, int _total_time);
+        ~constant_annuity();
+        void compute();
+        double get_annuity();
+};
 
 
 class constant_interest : public financial_plan {

@@ -1,5 +1,6 @@
 #include "financial_plan_backend.h"
 #include <iostream>
+#include <cmath>
 
 // Base Class Interface
 financial_plan::financial_plan(double _initial_debt, double _interest_rate, int _total_time):
@@ -58,6 +59,28 @@ void constant_repayment::compute() {
 }
 
 
+// konstante annuität
+constant_annuity::constant_annuity(double _initial_debt, double _interest_rate, int _total_time) :
+financial_plan(_initial_debt, _interest_rate, _total_time) {
+    compute();
+ }
+
+constant_annuity::~constant_annuity() {};
+
+double constant_annuity::get_annuity() {
+    double z = interest_rate * std::pow((1+(interest_rate/100)), (total_time));
+    double n = std::pow((1+(interest_rate/100)), (total_time)) - 1;
+    return (initial_debt * (z/n));
+}
+
+void constant_annuity::compute() {
+
+}
+
+
+
+
+
 // konstante tilgung
 constant_interest::constant_interest(double _initial_debt, double _interest_rate, int _total_time) :
 financial_plan(_initial_debt, _interest_rate, _total_time) {
@@ -90,7 +113,7 @@ int main() {
     financial_plan *f = new constant_repayment(1000, 10, 5);
     f->print_to_console();
     delete f;
-    financial_plan *k = new constant_interest(100,10,5);
+    financial_plan *k = new constant_interest(1000,10,5);
     k->print_to_console();
     delete k;
 
