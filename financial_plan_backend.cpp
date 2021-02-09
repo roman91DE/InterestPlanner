@@ -68,7 +68,7 @@ financial_plan(_initial_debt, _interest_rate, _total_time) {
 constant_annuity::~constant_annuity() {};
 
 double constant_annuity::get_annuity() {
-    double z = interest_rate * std::pow((1+(interest_rate/100)), (total_time));
+    double z = (interest_rate/100) * std::pow((1+(interest_rate/100)), (total_time));
     double n = std::pow((1+(interest_rate/100)), (total_time)) - 1;
     return (initial_debt * (z/n));
 }
@@ -117,9 +117,6 @@ void constant_interest::compute() {
         plan[i].push_back(initial_debt-(plan[i][1]));
     }
 }
-
-
-
 
 
 int main() {
