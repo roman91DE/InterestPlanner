@@ -1,23 +1,23 @@
 #include "financial_plan_backend.h"
 #include <iostream>
 
+// Base Class Interface
 financial_plan::financial_plan(double _initial_debt, double _interest_rate, int _total_time):
-initial_debt(_initial_debt), interest_rate(_interest_rate), total_time(_total_time) {
-    compute();
-}
-
+initial_debt(_initial_debt), interest_rate(_interest_rate), total_time(_total_time) {}
 
 financial_plan::~financial_plan() {};
 
-
 std::string financial_plan::plan_as_string() {
-    std::string s = "Year - Repayment - Interest - Annuity - Remaining Debt\n";
-    for (int i = 0; i <total_time; i++) {
-        s += ( std::to_string(i)                            // cur_year i
-              + " - " + std::to_string(plan[i][0])          // repay    [0]
-              + " - " + std::to_string(plan[i][1])          // interest [1]
-              + " - " + std::to_string(plan[i][2])          // annuity  [2]
-              + " - " + std::to_string(plan[i][3]) + "\n"   // remaider [3]
+    std::string s = "Credit Sum: " + std::to_string(initial_debt) +
+                    "; Runtime:" + std::to_string(total_time) + " periods" +
+                    "; Interest Rate: " + std::to_string(interest_rate) + "%\n" +
+    "t - Repayment  - Interest  -  Annuity  -  Remaining Debt\n";
+    for (unsigned int i = 0; i <total_time; i++) {
+        s += (          std::to_string(int(plan[i][0]))     // cur_year [0]
+              + " - " + std::to_string(plan[i][1])          // repay    [1]
+              + " - " + std::to_string(plan[i][2])          // interest [2]
+              + " - " + std::to_string(plan[i][3])          // annuity  [3]
+              + " - " + std::to_string(plan[i][4]) + "\n"   // remaider [4]
               );
     }
     return s;
@@ -25,4 +25,47 @@ std::string financial_plan::plan_as_string() {
 
 void financial_plan::print_to_console() {
     std::cout << "Financial Plan:\n" << plan_as_string();
+}
+
+double financial_plan::calculate_interest(double rate, double debt) {
+    return (rate*debt/100);
+}
+
+
+// konstante tilgung
+constant_repayment::constant_repayment(double _initial_debt, double _interest_rate, int _total_time) :
+financial_plan(_initial_debt, _interest_rate, _total_time) {
+    compute();
+}
+
+
+
+constant_repayment::~constant_repayment() {};
+
+void constant_repayment::compute() {
+    double repay_rate = initial_debt / double(total_time);
+    double remainder = initial_debt;
+    for (unsigned int i = 0; i < total_time; i++) {
+        std::vector<double> cur_year;
+        plan.push_back(cur_year);
+        plan[i].push_back(float(i)+1);
+        plan[i].push_back(repay_rate);
+        plan[i].push_back(financial_plan::calculate_interest(interest_rate, remainder));
+        plan[i].push_back(plan[i][1] + plan[i][2]);
+        remainder -= repay_rate;
+        plan[i].push_back(remainder);
+    }
+}
+
+
+
+
+
+
+
+int main() {
+    financial_plan *f = new constant_repayment(1000, 10, 10);
+    f->print_to_console();
+    delete f;
+    return 0;
 }

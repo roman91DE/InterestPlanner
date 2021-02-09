@@ -4,33 +4,42 @@
 #include <vector>
 #include <string>
 
-class financial_plan
-{
-    protected:
+class financial_plan {
+    public:
         double initial_debt;
         double interest_rate;
         int total_time;
         std::vector < std::vector <double> > plan;
     public:
-        financial_plan(double _initial_debt, double _interest_rate, int _ttime);
+        financial_plan(double _initial_debt, double _interest_rate, int _total_time);
         virtual ~financial_plan();
         virtual void compute() = 0;
         std::string plan_as_string();
         void print_to_console();
+        static double calculate_interest(double rate, double debt);
     };
 
-// konstante annuität
-class constant_annuity : financial_plan {
-
-};
-
 // konstante tilgung
-class constant_repayment : financial_plan {
-
+class constant_repayment : public financial_plan {
+        public:
+            constant_repayment(double _initial_debt, double _interest_rate, int _total_time);
+            ~constant_repayment();
+            void compute();
 };
 
-class constant_interest : financial_plan {
+
+// konstante annuität
+// class constant_annuity : public financial_plan {
+//     public:
+//         constant_annuity();
+//         ~constant_annuity();
+// };
+
+
+class constant_interest : public financial_plan {
     
 };
+
+
 
 #endif // FINANCIAL_PLAN_BACKEND_H
