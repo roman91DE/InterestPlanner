@@ -9,7 +9,7 @@ financial_plan::~financial_plan() {};
 
 std::string financial_plan::plan_as_string() {
     std::string s = "Credit Sum: " + std::to_string(initial_debt) +
-                    "; Runtime:" + std::to_string(total_time) + " periods" +
+                    "; Runtime: " + std::to_string(total_time) + " periods" +
                     "; Interest Rate: " + std::to_string(interest_rate) + "%\n" +
     "t - Repayment  - Interest  -  Annuity  -  Remaining Debt\n";
     for (unsigned int i = 0; i <total_time; i++) {
@@ -58,14 +58,41 @@ void constant_repayment::compute() {
 }
 
 
+// konstante tilgung
+constant_interest::constant_interest(double _initial_debt, double _interest_rate, int _total_time) :
+financial_plan(_initial_debt, _interest_rate, _total_time) {
+    compute();
+}
+
+constant_interest::~constant_interest() {};
+
+void constant_interest::compute() {
+    double interest = financial_plan::calculate_interest(interest_rate, initial_debt);
+    for (unsigned int i = 0; i < total_time; i++) {
+        std::vector<double> cur_year;
+        plan.push_back(cur_year);
+        plan[i].push_back(float(i)+1);
+        if (i < total_time-1)
+            plan[i].push_back(0.0);
+        else 
+            plan[i].push_back(initial_debt);
+        plan[i].push_back(interest);
+        plan[i].push_back(plan[i][1] + plan[i][2]);
+        plan[i].push_back(initial_debt-(plan[i][1]));
+    }
+}
 
 
 
 
 
 int main() {
-    financial_plan *f = new constant_repayment(1000, 10, 10);
+    financial_plan *f = new constant_repayment(1000, 10, 5);
     f->print_to_console();
     delete f;
+    financial_plan *k = new constant_interest(100,10,5);
+    k->print_to_console();
+    delete k;
+
     return 0;
 }

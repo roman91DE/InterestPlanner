@@ -37,7 +37,10 @@ class constant_repayment : public financial_plan {
 
 
 class constant_interest : public financial_plan {
-    
+    public:
+        constant_interest(double _initial_debt, double _interest_rate, int _total_time);
+        ~constant_interest();
+        void compute();
 };
 
 
