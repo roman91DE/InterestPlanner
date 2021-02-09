@@ -12,7 +12,7 @@ std::string financial_plan::plan_as_string() {
     std::string s = "Credit Sum: " + std::to_string(initial_debt) +
                     "; Runtime: " + std::to_string(total_time) + " periods" +
                     "; Interest Rate: " + std::to_string(interest_rate) + "%\n" +
-    "t - Repayment  - Interest  -  Annuity  -  Remaining Debt\n";
+    "t - Repayment - Interest - Annuity - Remaining Debt\n";
     for (unsigned int i = 0; i <total_time; i++) {
         s += (          std::to_string(int(plan[i][0]))     // cur_year [0]
               + " - " + std::to_string(plan[i][1])          // repay    [1]
@@ -122,17 +122,3 @@ void constant_interest::compute() {
     }
 }
 
-
-int main() {
-    financial_plan *f = new constant_repayment(1000, 10, 5);
-    f->print_to_console();
-    delete f;
-    financial_plan *k = new constant_interest(1000,10,5);
-    k->print_to_console();
-    delete k;
-    financial_plan *a = new constant_annuity(1000, 10, 5);
-    a->print_to_console();
-    delete a;
-
-    return 0;
-}

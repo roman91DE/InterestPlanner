@@ -1,5 +1,6 @@
 #ifndef FINANCIAL_PLAN_BACKEND_H
 #define FINANCIAL_PLAN_BACKEND_H
+
 #include <vector>
 #include <string>
 
@@ -28,7 +29,6 @@ class constant_repayment : public financial_plan {
         void compute();
 };
 
-
 // konstante annuität
 class constant_annuity : public financial_plan {
     public:
@@ -45,7 +45,5 @@ class constant_interest : public financial_plan {
         ~constant_interest();
         void compute();
 };
-
-
 
 #endif // FINANCIAL_PLAN_BACKEND_H
