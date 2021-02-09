@@ -74,7 +74,20 @@ double constant_annuity::get_annuity() {
 }
 
 void constant_annuity::compute() {
-
+    double annuity = get_annuity();
+    double remainder = initial_debt;
+    for (unsigned int i = 0; i < total_time; i++) {
+        double interest = remainder * (interest_rate/100);
+        double repay = annuity - interest;
+        remainder = remainder - repay;
+        std::vector<double> cur_year;
+        plan.push_back(cur_year);
+        plan[i].push_back(float(i)+1);
+        plan[i].push_back(repay);
+        plan[i].push_back(interest);
+        plan[i].push_back(annuity);
+        plan[i].push_back(remainder);
+    }
 }
 
 
@@ -116,6 +129,9 @@ int main() {
     financial_plan *k = new constant_interest(1000,10,5);
     k->print_to_console();
     delete k;
+    financial_plan *a = new constant_annuity(1000, 10, 5);
+    a->print_to_console();
+    delete a;
 
     return 0;
 }
