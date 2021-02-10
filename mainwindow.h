@@ -2,20 +2,33 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <memory>
+
+class financial_plan;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow
-{
-    Q_OBJECT
+class MainWindow : public QMainWindow {
+Q_OBJECT
+    // member
+    private:
+        Ui::MainWindow *ui;
 
-public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    // methods
+    private:
+        void generateTableWindow(std::shared_ptr <financial_plan> f);
+    public:
+        MainWindow(QWidget *parent = nullptr);
+        ~MainWindow();
 
-private:
-    Ui::MainWindow *ui;
+
+
+    // slots
+    public slots:
+        void slot_clicked_const_repay();
+        void slot_clicked_const_interest();
+        void slot_clicked_const_annuity();
 };
 #endif // MAINWINDOW_H
