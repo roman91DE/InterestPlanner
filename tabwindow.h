@@ -1,9 +1,30 @@
+#ifndef TABWINDOW_H
+#define TABWINDOW_H
+
+#include <QObject>
+#include <QMainWindow>
+#include <QWidget>
+
+QT_BEGIN_NAMESPACE
+namespace Ui { class MainWindow; }
+QT_END_NAMESPACE
+
+class tabWindow : public QMainWindow{
+Q_OBJECT
+private:
+
+public:
+    tabWindow();
+};
+
+#endif // TABWINDOW_H
+
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QMainWindow>
 #include <memory>
-#include "tablewindow.h"
 
 class financial_plan;
 

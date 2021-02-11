@@ -18,6 +18,7 @@ class financial_plan {
         std::string plan_as_string();
         void print_to_console();
         std::vector < std::vector<double> > get_matrix();
+        int get_totalTime() const;
         static double calculate_interest(double rate, double debt);
     };
 

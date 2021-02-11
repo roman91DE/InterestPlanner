@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "financial_plan_backend.h"
 
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) , ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
@@ -22,8 +23,11 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::generateTableWindow(std::shared_ptr <financial_plan> f) {
-        // f enthält financial plan obj (1 der 3 subklassen)
+        // f zeigt auf financial plan obj (1 der 3 subklassen)
         // konstruktor für neues fenster in dem sich tabelle aufbaut hier aufrufen
+        tableWindow *newWin = new tableWindow(f, this);
+        newWin->showFullScreen();
+        // hier noch auf memory leaks testen!
 }
 
 

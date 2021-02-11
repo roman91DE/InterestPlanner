@@ -36,6 +36,10 @@ std::vector < std::vector<double> > financial_plan::get_matrix() {
     return plan;
 }
 
+int financial_plan::get_totalTime() const{
+    return this->total_time;
+}
+
 
 // konstante tilgung
 constant_repayment::constant_repayment(double _initial_debt, double _interest_rate, int _total_time) :
@@ -121,4 +125,5 @@ void constant_interest::compute() {
         plan[i].push_back(initial_debt-(plan[i][1]));
     }
 }
+
 

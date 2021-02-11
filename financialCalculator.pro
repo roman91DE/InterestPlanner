@@ -11,11 +11,13 @@ CONFIG += c++11
 SOURCES += \
     financial_plan_backend.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    tablewindow.cpp
 
 HEADERS += \
     financial_plan_backend.h \
-    mainwindow.h
+    mainwindow.h \
+    tablewindow.h
 
 FORMS += \
     mainwindow.ui
